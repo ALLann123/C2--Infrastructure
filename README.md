@@ -5,13 +5,15 @@ Building my own command and control server🏴‍☠️
 # Server side(Kali Linux->Python)
 
 - Python is an amazing scripting language. We will use it to interact with infected zombies
+- 
 LOCATION: command_and_control/main.py
 
 # Agent/Implant(Go Language🎉🎉)
 
 - Golang is a cross-platform language allowing us to write code that can be compiled for different operating systems.
--  Go is fast like C/C++ with a syntax Python
-LOCATION: agent/shell.go
+-  Go is fast like C/C++ with a syntax similar to Python.
+
+LOCATION: agent/main.go
 - Compiling for Windows on PowerShell
   
   `Ps> go build -o shell.exe main.go`
