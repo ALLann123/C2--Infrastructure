@@ -29,3 +29,12 @@ LOCATION: agent/main.go
 # Getting Started:
 
 <img width="1013" height="453" alt="Screenshot 2025-11-24 113718" src="https://github.com/user-attachments/assets/5e143c8f-3387-47ef-ae38-4a0d1c8e6562" />
+
+# C2 Web SHell Redirector
+
+Server- Python(server.py)
+
+Agent(Implant)- C/C++(client.cpp)
+
+<img width="854" height="537" alt="image" src="https://github.com/user-attachments/assets/28cb81df-712f-41a8-afbb-278b9e572033" />
+
