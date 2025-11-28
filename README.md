@@ -38,13 +38,18 @@ Agent(Implant)- C/C++(client.cpp)
 
 NOTE: Added a Go implant; the advantage is cross-compile support. One code can be cross-compiled for different operating systems.🎆🎆🎆🥳
 
+On PowerShell:
+
 For Linux
+
 `$env:GOOS = "linux"; $env:GOARCH = "amd64"; go build -o client_linux main.go`
 
 For Windows
+
 `$env:GOOS = "windows"; $env:GOARCH = "amd64"; go build -o client_windows.exe main.go`
 
 For macOS
+
 `$env:GOOS = "darwin"; $env:GOARCH = "amd64"; go build -o client_macos main.go`
 
 <img width="854" height="537" alt="image" src="https://github.com/user-attachments/assets/28cb81df-712f-41a8-afbb-278b9e572033" />
