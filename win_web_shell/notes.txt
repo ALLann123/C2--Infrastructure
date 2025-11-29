@@ -1,0 +1,87 @@
+- Server accepts commands via HTTP and posts them to a command
+queue.
+- Client polls the server for pending commands, executes and returns
+command output back to the server.
+
+
+==============What does it do?=============
+- Windows Progam(client.cpp):
+1. Connect to the server using HTTP
+2. Continously asks the server? "Do you have a command for me"
+3. When it receives a command, executes it using windows command line
+4. Sends the command output back to the server
+
+- How it works:
+1. Loop never stops(infinite loop)
+2. If there's no command, it waits 2 seconds and asks again
+3. If connection fails, waits 5 seconds before retrying
+4. Special commands like "exit" or "quit" will break the loop and
+stop the client.
+
+_popen() windows fnction that runs a command in the system shell(like cmd.exe)
+NOTE: Think of it like a tube that captures the commands output
+fgets() reads the output line by line
+_pclose() closes the pipe and returns the exit code(0=success)
+
+Example: Command "whoami", _popen runs it in cmd.exe and captures
+the output like "DESKTOP-PC/User"
+
+=========Important functions Explained===========
+- WinHttpOpen(): Initializes the HTTP connection----> like opening your browser
+- WinHttpConnect(): connects to a specific server address and port
+- WinHttpOpenRequest(): Creates an HTTP request(GET or POST)
+- WinHttpSendRequest(): Sends the request to the server.
+- WinHttpReceiveResponse(): Waits for and received the server's WinHttpReceiveResponse
+- WinHttpQueryDataAvailable(): checks how many bytes are available to reads
+- WinHttpReadData(): Reads the actual data from the WinHttpReceiveResponse
+
+Why WinHTTP? Build into windows and client doesnt need any external
+libraries.
+
+JSON Handling- Converts special characters to safe format.
+
+
+===============SERVER(Python-> Flask)===============
+What does it do?
+1. Runs a web server on port 5000
+2. Accepts connections from client
+3. Allows an operator to type commands
+4. Sends Commands to clients when they asks
+5. Displays command outputs when received
+
+What is Lock? with lock: ensures only one thread accesess pending_command
+at a time. Without it, the input thread and Flask thread could interfere with each other
+causing bugs.
+Server has two main threads:
+1. Console Thread(background):
+- Reads commands typed by the operator
+- Stores them in pending_command dictionary
+- Shows command history
+
+2. Flask Web Server(main):
+- Handles HTTP request from clients
+- Sends commands when requested
+- Receives and Displays outputs
+
+Why Threads?
+Without threading, the server  couldn't do two things at once. 
+Flask needs to handle client requests while simulataneously allowing
+the operator to type commands. Threads allow both to happend at 
+the same time.
+
+N/B: Jsonify: Converts python dictionaries to Json and sets correct 
+HTTO headers.
+
+====================Communication Flow==================
+1. Operator types command: whoami
+2. Server stores it: pending_command["cmd"] = "whoami"
+3. Client polls: Sends GET request to /command
+4. Server responds: {"command": "whoami"}
+5. Client executes: Runs _popen("whoami", "r")
+6. Client captures output: "DESKTOP-PC\User\n"
+7. Client sends result: POST to /output with {"output": "DESKTOP-PC\\User\\n"}
+8. Server displays: Shows output to operator immediately
+9. Loop repeats: Client asks for next command
+
+
+
