@@ -2,7 +2,7 @@
 
 Building my own command and control server🏴‍☠️
 
-# Server side(Kali Linux->Python)
+# Server side(Kali Linux-->Python)
 
 - Python is an amazing scripting language. We will use it to interact with infected zombies
   
