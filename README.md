@@ -1,6 +1,6 @@
 # Command and Control- APT features: Redirector
 
-Building my own command and control server🏴‍☠️
+Building my own command and control server🏴‍☠️🏴‍☠️
 
 # Server side(Kali Linux-->Python)
 
